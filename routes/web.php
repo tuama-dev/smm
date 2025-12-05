@@ -32,6 +32,10 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::post('/logout', LogoutController::class)->name('logout');
     
     Route::get('/dashboard', [App\Http\Controllers\DashboardController::class, 'index'])->name('dashboard');
+
+    // Post Scheduling Routes
+    Route::get('/posts/schedule', [App\Http\Controllers\PostController::class, 'create'])->name('posts.create');
+    Route::post('/posts', [App\Http\Controllers\PostController::class, 'store'])->name('posts.store');
 });
 
 // Public routes
