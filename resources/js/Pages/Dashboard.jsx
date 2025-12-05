@@ -51,9 +51,11 @@ export default function Dashboard({ auth, accounts, posts, usage }) {
                             <SocialAccountCard
                                 key={provider}
                                 provider={provider}
-                                isConnected={accounts[provider]?.connected}
+                                accounts={accounts[provider]}
                                 onConnect={() => handleConnect(provider)}
-                                onDisconnect={() => handleDisconnect(provider)}
+                                onDisconnect={(id) =>
+                                    handleDisconnect(provider, id)
+                                }
                             />
                         ))}
                     </div>

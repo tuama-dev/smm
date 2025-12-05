@@ -11,9 +11,26 @@ class DashboardController extends Controller
     {
         return Inertia::render('Dashboard', [
             'accounts' => [
-                'instagram' => ['connected' => false],
-                'facebook' => ['connected' => false],
-                'tiktok' => ['connected' => false],
+                'instagram' => [
+                    [
+                        'id' => 1,
+                        'name' => 'Tuama Dev',
+                        'avatar' => 'https://ui-avatars.com/api/?name=Tuama+Dev&background=random',
+                    ],
+                    [
+                        'id' => 2,
+                        'name' => 'Tuama Lifestyle',
+                        'avatar' => 'https://ui-avatars.com/api/?name=Tuama+Life&background=random',
+                    ]
+                ],
+                'facebook' => [],
+                'tiktok' => [
+                    [
+                        'id' => 3,
+                        'name' => '@tuamadev',
+                        'avatar' => 'https://ui-avatars.com/api/?name=TD&background=000000&color=fff',
+                    ]
+                ],
             ],
             'posts' => [
                 [
