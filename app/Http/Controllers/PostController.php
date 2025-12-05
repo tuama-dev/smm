@@ -15,6 +15,7 @@ class PostController extends Controller
     public function store(Request $request)
     {
         $validated = $request->validate([
+            'title' => ['required', 'string', 'max:255'],
             'media' => ['required', 'file', 'mimes:jpg,jpeg,png,mp4,mov', 'max:51200'], // 50MB max
             'caption' => ['nullable', 'string', 'max:2200'],
             'platforms' => ['required', 'array', 'min:1'],

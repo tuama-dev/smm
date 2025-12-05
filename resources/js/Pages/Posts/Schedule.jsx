@@ -4,6 +4,7 @@ import MediaUploader from "@/Components/MediaUploader";
 
 export default function Schedule() {
     const { data, setData, post, processing, errors } = useForm({
+        title: "",
         media: null,
         caption: "",
         platforms: [],
@@ -99,6 +100,43 @@ export default function Schedule() {
                     <div className="grid grid-cols-1 lg:grid-cols-12 gap-8">
                         {/* Main Content Area */}
                         <div className="lg:col-span-8 space-y-8">
+                            {/* Title Section */}
+                            <div className="bg-white dark:bg-gray-800 p-8 rounded-3xl shadow-sm border border-gray-100 dark:border-gray-700/50 transition-all hover:shadow-md">
+                                <label className="block text-sm font-semibold text-gray-900 dark:text-gray-100 mb-4">
+                                    Post Title{" "}
+                                    <span className="text-gray-400 font-normal ml-1">
+                                        (Internal Name)
+                                    </span>
+                                </label>
+                                <input
+                                    type="text"
+                                    className="w-full rounded-2xl border-gray-200 dark:border-gray-600 bg-gray-50 dark:bg-gray-900/50 text-gray-900 dark:text-white placeholder-gray-400 dark:placeholder-gray-500 focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-500 transition-all p-4"
+                                    placeholder="e.g., Summer Campaign Launch"
+                                    value={data.title}
+                                    onChange={(e) =>
+                                        setData("title", e.target.value)
+                                    }
+                                />
+                                {errors.title && (
+                                    <p className="mt-2 text-sm text-red-600 flex items-center">
+                                        <svg
+                                            className="w-4 h-4 mr-1"
+                                            fill="none"
+                                            stroke="currentColor"
+                                            viewBox="0 0 24 24"
+                                        >
+                                            <path
+                                                strokeLinecap="round"
+                                                strokeLinejoin="round"
+                                                strokeWidth={2}
+                                                d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"
+                                            />
+                                        </svg>
+                                        {errors.title}
+                                    </p>
+                                )}
+                            </div>
+
                             {/* Media Upload Section */}
                             <div className="bg-white dark:bg-gray-800 p-8 rounded-3xl shadow-sm border border-gray-100 dark:border-gray-700/50 transition-all hover:shadow-md">
                                 <MediaUploader

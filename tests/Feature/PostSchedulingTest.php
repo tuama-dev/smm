@@ -27,6 +27,7 @@ test('user can schedule a valid post', function () {
 
     $response = $this->actingAs($user)
         ->post(route('posts.store'), [
+            'title' => 'My Post Title',
             'media' => $file,
             'caption' => 'This is a test post',
             'platforms' => ['instagram', 'facebook'],
@@ -42,10 +43,11 @@ test('validation fails for invalid input', function () {
 
     $response = $this->actingAs($user)
         ->post(route('posts.store'), [
+            'title' => '', // Required
             'media' => null, // Required
             'platforms' => [], // Required
             'scheduled_at' => now()->subDay()->toDateTimeString(), // Must be future
         ]);
 
-    $response->assertSessionHasErrors(['media', 'platforms', 'scheduled_at']);
+    $response->assertSessionHasErrors(['title', 'media', 'platforms', 'scheduled_at']);
 });
