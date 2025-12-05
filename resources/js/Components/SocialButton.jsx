@@ -79,7 +79,7 @@ export default function SocialButton({ provider, className = "" }) {
         <button
             type="button"
             onClick={handleClick}
-            className={`w-full flex items-center justify-center gap-3 px-4 py-3 rounded-lg font-medium transition-all duration-200 shadow-sm ${config.color} ${className}`}
+            className={`w-full flex items-center justify-center gap-3 px-4 py-3 rounded-lg font-medium transition-all duration-200 shadow-sm cursor-pointer ${config.color} ${className}`}
         >
             {config.icon}
             <span>Continue with {config.name}</span>
