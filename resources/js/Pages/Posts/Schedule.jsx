@@ -110,7 +110,7 @@ export default function Schedule() {
                                 </label>
                                 <input
                                     type="text"
-                                    className="w-full rounded-2xl border-gray-200 dark:border-gray-600 bg-gray-50 dark:bg-gray-900/50 text-gray-900 dark:text-white placeholder-gray-400 dark:placeholder-gray-500 focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-500 transition-all p-4"
+                                    className="w-full rounded-2xl border-gray-200 dark:border-gray-600 bg-gray-50 dark:bg-gray-900/50 text-gray-900 dark:text-white placeholder-gray-400 dark:placeholder-gray-500 focus:ring-2 focus:ring-primary-500/20 focus:border-primary-500 transition-all p-4"
                                     placeholder="e.g., Summer Campaign Launch"
                                     value={data.title}
                                     onChange={(e) =>
@@ -149,7 +149,7 @@ export default function Schedule() {
 
                             {/* Caption Section */}
                             <div className="bg-white dark:bg-gray-800 p-8 rounded-3xl shadow-sm border border-gray-100 dark:border-gray-700/50 transition-all hover:shadow-md">
-                                <label className="block text-sm font-semibold text-gray-900 dark:text-gray-100 mb-4 flex justify-between items-center">
+                                <label className="text-sm font-semibold text-gray-900 dark:text-gray-100 mb-4 flex justify-between items-center">
                                     <span>Caption</span>
                                     <span
                                         className={`text-xs px-2 py-1 rounded-full ${
@@ -164,7 +164,7 @@ export default function Schedule() {
                                 <div className="relative">
                                     <textarea
                                         rows="6"
-                                        className="w-full rounded-2xl border-gray-200 dark:border-gray-600 bg-gray-50 dark:bg-gray-900/50 text-gray-900 dark:text-white placeholder-gray-400 dark:placeholder-gray-500 focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-500 transition-all resize-none p-4"
+                                        className="w-full rounded-2xl border-gray-200 dark:border-gray-600 bg-gray-50 dark:bg-gray-900/50 text-gray-900 dark:text-white placeholder-gray-400 dark:placeholder-gray-500 focus:ring-2 focus:ring-primary-500/20 focus:border-primary-500 transition-all resize-none p-4"
                                         placeholder="Write a catchy caption..."
                                         value={data.caption}
                                         onChange={(e) =>
@@ -174,7 +174,7 @@ export default function Schedule() {
                                     <div className="absolute bottom-3 right-3 flex gap-2">
                                         <button
                                             type="button"
-                                            className="p-1.5 text-gray-400 hover:text-indigo-500 transition-colors"
+                                            className="p-1.5 text-gray-400 hover:text-primary-500 transition-colors"
                                         >
                                             <svg
                                                 className="w-5 h-5"
@@ -192,7 +192,7 @@ export default function Schedule() {
                                         </button>
                                         <button
                                             type="button"
-                                            className="p-1.5 text-gray-400 hover:text-indigo-500 transition-colors"
+                                            className="p-1.5 text-gray-400 hover:text-primary-500 transition-colors"
                                         >
                                             <svg
                                                 className="w-5 h-5"
@@ -237,7 +237,7 @@ export default function Schedule() {
                             <div className="bg-white dark:bg-gray-800 p-6 rounded-3xl shadow-sm border border-gray-100 dark:border-gray-700/50 sticky top-24">
                                 <h3 className="text-lg font-bold text-gray-900 dark:text-white mb-5 flex items-center">
                                     <svg
-                                        className="w-5 h-5 mr-2 text-indigo-500"
+                                        className="w-5 h-5 mr-2 text-primary-500"
                                         fill="none"
                                         stroke="currentColor"
                                         viewBox="0 0 24 24"
@@ -298,8 +298,8 @@ export default function Schedule() {
                                             ) && (
                                                 <div className="absolute top-4 right-4">
                                                     <span className="flex h-3 w-3">
-                                                        <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-indigo-400 opacity-75"></span>
-                                                        <span className="relative inline-flex rounded-full h-3 w-3 bg-indigo-500"></span>
+                                                        <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-primary-400 opacity-75"></span>
+                                                        <span className="relative inline-flex rounded-full h-3 w-3 bg-primary-500"></span>
                                                     </span>
                                                 </div>
                                             )}
@@ -315,7 +315,7 @@ export default function Schedule() {
                                 <div className="mt-8 pt-6 border-t border-gray-100 dark:border-gray-700">
                                     <h3 className="text-lg font-bold text-gray-900 dark:text-white mb-4 flex items-center">
                                         <svg
-                                            className="w-5 h-5 mr-2 text-indigo-500"
+                                            className="w-5 h-5 mr-2 text-primary-500"
                                             fill="none"
                                             stroke="currentColor"
                                             viewBox="0 0 24 24"
@@ -332,7 +332,7 @@ export default function Schedule() {
                                     <div className="relative">
                                         <input
                                             type="datetime-local"
-                                            className="w-full rounded-xl border-gray-200 dark:border-gray-600 bg-gray-50 dark:bg-gray-900/50 text-gray-900 dark:text-white focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-500 p-3"
+                                            className="w-full rounded-xl border-gray-200 dark:border-gray-600 bg-gray-50 dark:bg-gray-900/50 text-gray-900 dark:text-white focus:ring-2 focus:ring-primary-500/20 focus:border-primary-500 p-3"
                                             value={data.scheduled_at}
                                             onChange={(e) =>
                                                 setData(
@@ -358,7 +358,7 @@ export default function Schedule() {
                                         disabled={processing}
                                         className="group relative w-full flex items-center justify-center py-4 px-6 bg-gray-900 dark:bg-white text-white dark:text-gray-900 font-bold text-lg rounded-2xl shadow-lg hover:shadow-xl hover:-translate-y-0.5 transition-all duration-200 disabled:opacity-70 disabled:hover:translate-y-0 disabled:hover:shadow-lg overflow-hidden"
                                     >
-                                        <div className="absolute inset-0 bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 opacity-0 group-hover:opacity-10 transition-opacity duration-300" />
+                                        <div className="absolute inset-0 bg-linear-to-r from-primary-500 via-purple-500 to-pink-500 opacity-0 group-hover:opacity-10 transition-opacity duration-300" />
                                         <span className="relative flex items-center gap-2">
                                             {processing ? (
                                                 <>
