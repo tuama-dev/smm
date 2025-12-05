@@ -79,7 +79,7 @@ export default function SocialAccountCard({
                 </div>
 
                 <div className="flex-1">
-                    <h3 className="text-lg font-bold text-gray-900 dark:text-white group-hover:text-indigo-600 dark:group-hover:text-indigo-400 transition-colors">
+                    <h3 className="text-lg font-bold text-gray-900 dark:text-white group-hover:text-primary-600 dark:group-hover:text-primary-400 transition-colors">
                         {name}
                     </h3>
 

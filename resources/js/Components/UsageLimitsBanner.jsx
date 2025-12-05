@@ -3,7 +3,7 @@ export default function UsageLimitsBanner({ used, limit }) {
     const isLimitReached = used >= limit;
 
     return (
-        <div className="relative overflow-hidden bg-linear-to-r from-indigo-900 to-purple-900 rounded-2xl p-6 text-white shadow-xl">
+        <div className="relative overflow-hidden bg-linear-to-r from-primary-900 to-purple-900 rounded-2xl p-6 text-white shadow-xl">
             {/* Background pattern */}
             <div className="absolute inset-0 opacity-10">
                 <svg
@@ -22,7 +22,7 @@ export default function UsageLimitsBanner({ used, limit }) {
             <div className="relative z-10 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-6">
                 <div className="flex-1 w-full">
                     <div className="flex items-center justify-between mb-2">
-                        <span className="text-sm font-medium text-indigo-100 uppercase tracking-wider">
+                        <span className="text-sm font-medium text-primary-100 uppercase tracking-wider">
                             Free Plan Usage
                         </span>
                         <span className="text-sm font-bold text-white">
@@ -30,18 +30,18 @@ export default function UsageLimitsBanner({ used, limit }) {
                         </span>
                     </div>
 
-                    <div className="w-full h-3 bg-indigo-950/50 rounded-full overflow-hidden backdrop-blur-sm border border-indigo-700/30">
+                    <div className="w-full h-3 bg-primary-950/50 rounded-full overflow-hidden backdrop-blur-sm border border-primary-700/30">
                         <div
                             className={`h-full rounded-full transition-all duration-500 ease-out ${
                                 isLimitReached
                                     ? "bg-red-500"
-                                    : "bg-linear-to-r from-cyan-400 to-indigo-400"
+                                    : "bg-linear-to-r from-cyan-400 to-primary-400"
                             }`}
                             style={{ width: `${percentage}%` }}
                         />
                     </div>
 
-                    <p className="mt-3 text-sm text-indigo-200">
+                    <p className="mt-3 text-sm text-primary-200">
                         {isLimitReached
                             ? "You've reached your monthly limit of 3 scheduled posts."
                             : `You can schedule ${
@@ -51,7 +51,7 @@ export default function UsageLimitsBanner({ used, limit }) {
                 </div>
 
                 <div className="shrink-0 w-full sm:w-auto">
-                    <button className="group w-full sm:w-auto flex items-center justify-center gap-2 px-6 py-3 bg-white text-indigo-900 rounded-xl font-bold hover:bg-indigo-50 transition-colors shadow-lg shadow-white/10">
+                    <button className="group w-full sm:w-auto flex items-center justify-center gap-2 px-6 py-3 bg-white text-primary-900 rounded-xl font-bold hover:bg-primary-50 transition-colors shadow-lg shadow-white/10">
                         <span>Upgrade to Pro</span>
                         <svg
                             className="w-4 h-4 transition-transform group-hover:translate-x-1"
@@ -67,7 +67,7 @@ export default function UsageLimitsBanner({ used, limit }) {
                             />
                         </svg>
                     </button>
-                    <p className="mt-2 text-xs text-center text-indigo-300">
+                    <p className="mt-2 text-xs text-center text-primary-300">
                         Unlock unlimited posts & advanced analytics
                     </p>
                 </div>
