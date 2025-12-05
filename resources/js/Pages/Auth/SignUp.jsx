@@ -179,7 +179,7 @@ export default function SignUp() {
                     <button
                         type="submit"
                         disabled={processing}
-                        className="w-full mt-4 px-4 py-2.5 text-sm bg-linear-to-r from-primary-600 to-purple-600 hover:from-primary-700 hover:to-purple-700 text-white font-semibold rounded-lg shadow-md hover:shadow-lg transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed"
+                        className="w-full mt-4 px-4 py-2.5 text-sm bg-primary-500 hover:bg-primary-600 text-white font-semibold rounded-lg shadow-md hover:shadow-lg transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed cursor-pointer"
                     >
                         {processing ? "Creating Account..." : "Create Account"}
                     </button>
