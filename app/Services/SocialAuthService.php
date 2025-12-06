@@ -58,12 +58,17 @@ class SocialAuthService
         }
 
         // Create new user
-        return User::create([
+        $user = User::create([
             'name' => $providerUser->getName(),
             'email' => $providerUser->getEmail(),
             'provider' => $provider,
             'provider_id' => $providerUser->getId(),
             'password' => null, // Social login users don't have a password
         ]);
+
+        // Assign customer role to new user
+        $user->assignRole('customer');
+
+        return $user;
     }
 }

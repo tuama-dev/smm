@@ -1,6 +1,7 @@
 <?php
 
 use App\Models\User;
+use Database\Seeders\RoleSeeder;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Support\Facades\Config;
 use Laravel\Socialite\Contracts\User as SocialiteUser;
@@ -12,6 +13,12 @@ uses(RefreshDatabase::class);
 use function Pest\Laravel\assertAuthenticated;
 use function Pest\Laravel\assertDatabaseHas;
 use function Pest\Laravel\get;
+use function Pest\Laravel\seed;
+
+// Seed roles before each test
+beforeEach(function () {
+    seed(RoleSeeder::class);
+});
 
 // Redirect to Provider Tests
 it('redirects to google oauth provider', function () {
@@ -99,6 +106,22 @@ it('authenticates user after social login', function () {
 
     assertAuthenticated();
     expect(auth()->user()->email)->toBe('john@example.com');
+});
+
+it('assigns customer role to new users from social login', function () {
+    $socialiteUser = m::mock(SocialiteUser::class);
+    $socialiteUser->shouldReceive('getId')->andReturn('google-123');
+    $socialiteUser->shouldReceive('getEmail')->andReturn('john@example.com');
+    $socialiteUser->shouldReceive('getName')->andReturn('John Doe');
+
+    Socialite::shouldReceive('driver->user')->andReturn($socialiteUser);
+
+    get('/auth/google/callback');
+
+    $user = User::where('email', 'john@example.com')->first();
+
+    expect($user->hasRole('customer'))->toBeTrue()
+        ->and($user->roles)->toHaveCount(1);
 });
 
 // OAuth Callback - Existing User Tests
@@ -234,7 +257,7 @@ it('works with different provider formats', function () {
         $socialiteUser = m::mock(SocialiteUser::class);
         $socialiteUser->shouldReceive('getId')->andReturn("{$provider}-123");
         $socialiteUser->shouldReceive('getEmail')->andReturn("{$provider}@example.com");
-        $socialiteUser->shouldReceive('getName')->andReturn(ucfirst($provider) . ' User');
+        $socialiteUser->shouldReceive('getName')->andReturn(ucfirst($provider).' User');
 
         Socialite::shouldReceive('driver->user')->andReturn($socialiteUser);
 

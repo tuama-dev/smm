@@ -30,7 +30,7 @@ class SocialAuthController extends Controller
 
             return redirect()->route('dashboard');
         } catch (\Exception $e) {
-            return redirect()->route('signin')->with('error', 'Unable to authenticate with ' . ucfirst($provider) . '. Please try again.');
+            return redirect()->route('signin')->with('error', 'Unable to authenticate with '.ucfirst($provider).'. Please try again.');
         }
     }
 }

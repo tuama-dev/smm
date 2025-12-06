@@ -20,6 +20,9 @@ class AuthService
             'password' => Hash::make($data['password']),
         ]);
 
+        // Assign customer role to new user
+        $user->assignRole('customer');
+
         Auth::login($user);
 
         return $user;
@@ -39,7 +42,7 @@ class AuthService
     public function logout(): void
     {
         Auth::logout();
-        
+
         request()->session()->invalidate();
         request()->session()->regenerateToken();
     }

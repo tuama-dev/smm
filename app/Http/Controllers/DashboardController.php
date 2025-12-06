@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
 use Inertia\Inertia;
 
 class DashboardController extends Controller
@@ -21,7 +20,7 @@ class DashboardController extends Controller
                         'id' => 2,
                         'name' => 'Tuama Lifestyle',
                         'avatar' => 'https://ui-avatars.com/api/?name=Tuama+Life&background=random',
-                    ]
+                    ],
                 ],
                 'facebook' => [],
                 'tiktok' => [
@@ -29,7 +28,7 @@ class DashboardController extends Controller
                         'id' => 3,
                         'name' => '@tuamadev',
                         'avatar' => 'https://ui-avatars.com/api/?name=TD&background=000000&color=fff',
-                    ]
+                    ],
                 ],
             ],
             'posts' => [
