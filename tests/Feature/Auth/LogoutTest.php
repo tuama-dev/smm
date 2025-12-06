@@ -22,7 +22,7 @@ it('invalidates session on logout', function () {
     $user = User::factory()->create();
 
     $this->actingAs($user);
-    
+
     $sessionId = session()->getId();
 
     post('/logout');
@@ -35,7 +35,7 @@ it('regenerates CSRF token on logout', function () {
     $user = User::factory()->create();
 
     $this->actingAs($user);
-    
+
     $oldToken = csrf_token();
 
     post('/logout');
@@ -78,7 +78,7 @@ it('clears remember me cookie on logout', function () {
     $response = post('/logout');
 
     // Remember cookie should be cleared
-    $response->assertCookie('remember_web_' . sha1(static::class), null);
+    $response->assertCookie('remember_web_'.sha1(static::class), null);
 });
 
 it('redirects to home page after logout', function () {

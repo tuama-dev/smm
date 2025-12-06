@@ -1,6 +1,7 @@
 <?php
 
 use App\Models\User;
+use Database\Seeders\RoleSeeder;
 use Illuminate\Auth\Notifications\VerifyEmail;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Support\Facades\Notification;
@@ -8,10 +9,14 @@ use Illuminate\Support\Facades\Notification;
 use function Pest\Laravel\assertDatabaseHas;
 use function Pest\Laravel\get;
 use function Pest\Laravel\post;
+use function Pest\Laravel\seed;
 
 uses(RefreshDatabase::class);
 
 beforeEach(function () {
+    // Seed roles for tests
+    seed(RoleSeeder::class);
+
     Notification::fake();
 });
 
@@ -60,7 +65,7 @@ it('hashes the user password', function () {
     ]);
 
     $user = User::where('email', 'john@example.com')->first();
-    
+
     expect($user->password)->not->toBe('password123')
         ->and(Hash::check('password123', $user->password))->toBeTrue();
 });
@@ -89,6 +94,20 @@ it('sends verification email after registration', function () {
         User::where('email', 'john@example.com')->first(),
         VerifyEmail::class
     );
+});
+
+it('assigns customer role to newly registered users', function () {
+    post('/signup', [
+        'name' => 'John Doe',
+        'email' => 'john@example.com',
+        'password' => 'password123',
+        'password_confirmation' => 'password123',
+    ]);
+
+    $user = User::where('email', 'john@example.com')->first();
+
+    expect($user->hasRole('customer'))->toBeTrue()
+        ->and($user->roles)->toHaveCount(1);
 });
 
 it('can register without phone number', function () {
