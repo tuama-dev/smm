@@ -1,3 +1,5 @@
+import { route } from "ziggy-js";
+
 export default function SocialButton({ provider, className = "" }) {
     const providers = {
         google: {
@@ -72,7 +74,7 @@ export default function SocialButton({ provider, className = "" }) {
     }
 
     const handleClick = () => {
-        window.location.href = `/auth/${provider.toLowerCase()}`;
+        window.location.href = route("social.redirect", provider.toLowerCase());
     };
 
     return (

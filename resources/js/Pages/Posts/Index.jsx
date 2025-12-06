@@ -282,7 +282,7 @@ export default function Index({ posts = [] }) {
                             All Posts
                         </h1>
                         <Link
-                            href="/posts/create"
+                            href={route("posts.create")}
                             className="bg-primary-600 hover:bg-primary-700 text-white font-bold py-2 px-4 rounded-xl inline-flex items-center gap-2 transform transition hover:scale-105 shadow-md"
                         >
                             <CreateIcon />
@@ -749,7 +749,7 @@ export default function Index({ posts = [] }) {
                                 {posts.length === 0 && (
                                     <div className="mt-6">
                                         <Link
-                                            href="/posts/create"
+                                            href={route("posts.create")}
                                             className="inline-flex items-center px-4 py-2 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-primary-600 hover:bg-primary-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary-500"
                                         >
                                             <CreateIcon

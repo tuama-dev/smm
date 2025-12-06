@@ -1,6 +1,7 @@
 import { Link } from "@inertiajs/react";
 import { useState } from "react";
-import HomeIcon from "@mui/icons-material/Home";
+import { route } from "ziggy-js";
+import DashboardIcon from "@mui/icons-material/Dashboard";
 import CalendarMonthIcon from "@mui/icons-material/CalendarMonth";
 import GroupsIcon from "@mui/icons-material/Groups";
 import SettingsIcon from "@mui/icons-material/Settings";
@@ -17,7 +18,7 @@ export default function Sidebar({ open, setOpen }) {
     // State to track open/closed parent menus
     // Initialize with 'Posts' open if we are in a posts route
     const [openMenus, setOpenMenus] = useState({
-        Posts: window.location.pathname.startsWith("/posts"),
+        Posts: route().current("posts.*"),
     });
 
     const toggleMenu = (name) => {
@@ -30,40 +31,38 @@ export default function Sidebar({ open, setOpen }) {
     const navigation = [
         {
             name: "Dashboard",
-            href: "/dashboard",
-            icon: "HomeIcon",
-            current:
-                window.location.pathname === "/dashboard" ||
-                window.location.pathname === "/",
+            href: route("dashboard"),
+            icon: "DashboardIcon",
+            current: route().current("dashboard"),
         },
         {
             name: "Social Accounts",
-            href: "/accounts",
+            href: "/accounts", // No route defined yet
             icon: "UserGroupIcon",
             current: window.location.pathname.startsWith("/accounts"),
         },
         {
             name: "Posts",
             icon: "ArticleIcon",
-            current: window.location.pathname.startsWith("/posts"),
+            current: route().current("posts.*"),
             children: [
                 {
                     name: "All Posts",
-                    href: "/posts",
+                    href: route("posts.index"),
                     icon: "ListAltIcon",
-                    current: window.location.pathname === "/posts",
+                    current: route().current("posts.index"),
                 },
                 {
                     name: "Create Post",
-                    href: "/posts/create",
+                    href: route("posts.create"),
                     icon: "AddCircleOutlineIcon",
-                    current: window.location.pathname === "/posts/create",
+                    current: route().current("posts.create"),
                 },
                 {
                     name: "Scheduled Posts",
-                    href: "/posts/scheduled",
+                    href: route("posts.scheduled"),
                     icon: "EventIcon",
-                    current: window.location.pathname === "/posts/scheduled",
+                    current: route().current("posts.scheduled"),
                 },
             ],
         },
@@ -167,7 +166,7 @@ export default function Sidebar({ open, setOpen }) {
 
 function NavigationIcon({ name }) {
     const icons = {
-        HomeIcon: <HomeIcon className="w-5 h-5" />,
+        DashboardIcon: <DashboardIcon className="w-5 h-5" />,
         CalendarIcon: <CalendarMonthIcon className="w-5 h-5" />,
         UserGroupIcon: <GroupsIcon className="w-5 h-5" />,
         CogIcon: <SettingsIcon className="w-5 h-5" />,

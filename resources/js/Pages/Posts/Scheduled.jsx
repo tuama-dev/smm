@@ -1,6 +1,7 @@
 import React, { useState, useMemo, useEffect } from "react";
 import DashboardLayout from "@/Layouts/DashboardLayout";
 import { Head, Link } from "@inertiajs/react";
+import { route } from "ziggy-js";
 import {
     ChevronLeft as ChevronLeftIcon,
     ChevronRight as ChevronRightIcon,
@@ -177,7 +178,7 @@ const DraggablePost = ({ post }) => {
         >
             {/* Edit Link - Stop propagation to prevent drag start */}
             <Link
-                href={`/posts/${post.numericId}/edit`}
+                href={route("posts.edit", post.numericId)}
                 className="absolute top-1 right-1 p-1 rounded-md opacity-0 group-hover/card:opacity-100 hover:bg-gray-100 dark:hover:bg-gray-600 text-gray-400 hover:text-primary-600 transition-all z-20"
                 onPointerDown={(e) => e.stopPropagation()}
                 onClick={(e) => e.stopPropagation()}

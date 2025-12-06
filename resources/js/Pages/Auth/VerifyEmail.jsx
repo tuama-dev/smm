@@ -1,5 +1,6 @@
 import { router } from "@inertiajs/react";
 import { useState } from "react";
+import { route } from "ziggy-js";
 
 export default function VerifyEmail({ status }) {
     const [resending, setResending] = useState(false);
@@ -7,7 +8,7 @@ export default function VerifyEmail({ status }) {
     const handleResend = () => {
         setResending(true);
         router.post(
-            "/email/verification-notification",
+            route("verification.send"),
             {},
             {
                 onFinish: () => setResending(false),

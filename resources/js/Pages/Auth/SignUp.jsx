@@ -1,6 +1,7 @@
 import { Link, useForm } from "@inertiajs/react";
 import AuthLayout from "@/Layouts/AuthLayout";
 import SocialButton from "@/Components/SocialButton";
+import { route } from "ziggy-js";
 
 export default function SignUp() {
     const { data, setData, post, processing, errors } = useForm({
@@ -13,7 +14,7 @@ export default function SignUp() {
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        post("/signup");
+        post(route("signup"));
     };
 
     return (
@@ -190,7 +191,7 @@ export default function SignUp() {
                     <p className="text-sm text-gray-600 dark:text-gray-400">
                         Already have an account?{" "}
                         <Link
-                            href="/signin"
+                            href={route("signin")}
                             className="font-semibold text-primary-600 hover:text-primary-700 dark:text-primary-400 dark:hover:text-primary-300 transition-colors"
                         >
                             Sign In
