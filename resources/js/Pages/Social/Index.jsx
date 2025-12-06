@@ -12,6 +12,7 @@ import { useState } from "react";
 import { AiOutlineTikTok } from "react-icons/ai";
 
 export default function Index({ auth }) {
+    // Social Accounts Page Component
     // Mock data for social platforms
     const [platforms, setPlatforms] = useState([
         {
