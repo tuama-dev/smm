@@ -34,8 +34,19 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('/dashboard', [App\Http\Controllers\DashboardController::class, 'index'])->name('dashboard');
 
     // Post Scheduling Routes
-    Route::get('/posts/schedule', [App\Http\Controllers\PostController::class, 'create'])->name('posts.create');
-    Route::post('/posts', [App\Http\Controllers\PostController::class, 'store'])->name('posts.store');
+    // Post Scheduling Routes
+    // Post Scheduling Routes
+    Route::prefix('posts')->name('posts.')->group(function () {
+        Route::get('/', [App\Http\Controllers\PostController::class, 'index'])->name('index');
+        Route::get('/create', [App\Http\Controllers\PostController::class, 'create'])->name('create');
+        Route::post('/', [App\Http\Controllers\PostController::class, 'store'])->name('store');
+        Route::get('/scheduled', [App\Http\Controllers\PostController::class, 'scheduled'])->name('scheduled');
+        
+        // Edit & Update
+        Route::get('/{post}/edit', [App\Http\Controllers\PostController::class, 'edit'])->name('edit');
+        Route::put('/{post}', [App\Http\Controllers\PostController::class, 'update'])->name('update');
+        Route::delete('/{post}', [App\Http\Controllers\PostController::class, 'destroy'])->name('destroy');
+    });
 });
 
 // Public routes

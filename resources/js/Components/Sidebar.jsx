@@ -1,16 +1,32 @@
 import { Link } from "@inertiajs/react";
-import { useState } from "react"; // Kept for future or strict mode compliance since we used it before,
-// actually we don't need useState anymore if no dropdown.
-// But wait, the Sidebar is generic and we're removing `onLogout` and `user` usage from Sidebar?
-// Ah user is only used for profile which we removed. So we can clear props too.
+import { useState } from "react";
 import HomeIcon from "@mui/icons-material/Home";
 import CalendarMonthIcon from "@mui/icons-material/CalendarMonth";
 import GroupsIcon from "@mui/icons-material/Groups";
 import SettingsIcon from "@mui/icons-material/Settings";
 import BoltIcon from "@mui/icons-material/Bolt";
 import CloseIcon from "@mui/icons-material/Close";
+import ArticleIcon from "@mui/icons-material/Article";
+import ExpandLess from "@mui/icons-material/ExpandLess";
+import ExpandMore from "@mui/icons-material/ExpandMore";
+import AddCircleOutlineIcon from "@mui/icons-material/AddCircleOutline";
+import ListAltIcon from "@mui/icons-material/ListAlt";
+import EventIcon from "@mui/icons-material/Event";
 
 export default function Sidebar({ open, setOpen }) {
+    // State to track open/closed parent menus
+    // Initialize with 'Posts' open if we are in a posts route
+    const [openMenus, setOpenMenus] = useState({
+        Posts: window.location.pathname.startsWith("/posts"),
+    });
+
+    const toggleMenu = (name) => {
+        setOpenMenus((prev) => ({
+            ...prev,
+            [name]: !prev[name],
+        }));
+    };
+
     const navigation = [
         {
             name: "Dashboard",
@@ -21,16 +37,35 @@ export default function Sidebar({ open, setOpen }) {
                 window.location.pathname === "/",
         },
         {
-            name: "Schedule Posts",
-            href: "/posts/schedule",
-            icon: "CalendarIcon",
-            current: window.location.pathname.startsWith("/posts/schedule"),
-        },
-        {
             name: "Social Accounts",
             href: "/accounts",
             icon: "UserGroupIcon",
             current: window.location.pathname.startsWith("/accounts"),
+        },
+        {
+            name: "Posts",
+            icon: "ArticleIcon",
+            current: window.location.pathname.startsWith("/posts"),
+            children: [
+                {
+                    name: "All Posts",
+                    href: "/posts",
+                    icon: "ListAltIcon",
+                    current: window.location.pathname === "/posts",
+                },
+                {
+                    name: "Create Post",
+                    href: "/posts/create",
+                    icon: "AddCircleOutlineIcon",
+                    current: window.location.pathname === "/posts/create",
+                },
+                {
+                    name: "Scheduled Posts",
+                    href: "/posts/scheduled",
+                    icon: "EventIcon",
+                    current: window.location.pathname === "/posts/scheduled",
+                },
+            ],
         },
     ];
 
@@ -62,18 +97,67 @@ export default function Sidebar({ open, setOpen }) {
                 {/* Navigation */}
                 <nav className="flex-1 px-4 py-6 space-y-2 overflow-y-auto">
                     {navigation.map((item) => (
-                        <Link
-                            key={item.name}
-                            href={item.href}
-                            className={`flex items-center gap-3 px-4 py-3 rounded-lg text-sm font-medium transition-colors ${
-                                item.current
-                                    ? "bg-primary-500 text-primary-50 dark:text-primary-50"
-                                    : "text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700"
-                            }`}
-                        >
-                            <NavigationIcon name={item.icon} />
-                            {item.name}
-                        </Link>
+                        <div key={item.name}>
+                            {item.children ? (
+                                /* Parent with Children */
+                                <>
+                                    <button
+                                        onClick={() => toggleMenu(item.name)}
+                                        className={`w-full flex items-center justify-between px-4 py-3 rounded-lg text-sm font-medium transition-colors ${
+                                            item.current
+                                                ? "text-primary-600 dark:text-primary-400 bg-primary-50 dark:bg-primary-900/10"
+                                                : "text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700"
+                                        }`}
+                                    >
+                                        <div className="flex items-center gap-3">
+                                            <NavigationIcon name={item.icon} />
+                                            {item.name}
+                                        </div>
+                                        {openMenus[item.name] ? (
+                                            <ExpandLess className="w-5 h-5" />
+                                        ) : (
+                                            <ExpandMore className="w-5 h-5" />
+                                        )}
+                                    </button>
+
+                                    {/* Children Links */}
+                                    <div
+                                        className={`pl-11 space-y-1 overflow-hidden transition-[max-height] duration-300 ease-in-out ${
+                                            openMenus[item.name]
+                                                ? "max-h-96 mt-1"
+                                                : "max-h-0"
+                                        }`}
+                                    >
+                                        {item.children.map((child) => (
+                                            <Link
+                                                key={child.name}
+                                                href={child.href}
+                                                className={`flex items-center gap-3 px-4 py-2 rounded-lg text-sm transition-colors ${
+                                                    child.current
+                                                        ? "text-primary-600 dark:text-primary-400 font-medium"
+                                                        : "text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-200"
+                                                }`}
+                                            >
+                                                <span>{child.name}</span>
+                                            </Link>
+                                        ))}
+                                    </div>
+                                </>
+                            ) : (
+                                /* Regular Link */
+                                <Link
+                                    href={item.href}
+                                    className={`flex items-center gap-3 px-4 py-3 rounded-lg text-sm font-medium transition-colors ${
+                                        item.current
+                                            ? "bg-primary-500 text-primary-50 dark:text-primary-50"
+                                            : "text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700"
+                                    }`}
+                                >
+                                    <NavigationIcon name={item.icon} />
+                                    {item.name}
+                                </Link>
+                            )}
+                        </div>
                     ))}
                 </nav>
             </div>
@@ -87,6 +171,10 @@ function NavigationIcon({ name }) {
         CalendarIcon: <CalendarMonthIcon className="w-5 h-5" />,
         UserGroupIcon: <GroupsIcon className="w-5 h-5" />,
         CogIcon: <SettingsIcon className="w-5 h-5" />,
+        ArticleIcon: <ArticleIcon className="w-5 h-5" />,
+        ListAltIcon: <ListAltIcon className="w-5 h-5" />,
+        AddCircleOutlineIcon: <AddCircleOutlineIcon className="w-5 h-5" />,
+        EventIcon: <EventIcon className="w-5 h-5" />,
     };
 
     return icons[name] || null;

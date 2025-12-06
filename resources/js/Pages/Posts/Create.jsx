@@ -11,15 +11,25 @@ import CheckCircleIcon from "@mui/icons-material/CheckCircle";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
 import RocketLaunchIcon from "@mui/icons-material/RocketLaunch";
+import { route } from "ziggy-js";
 
-export default function Schedule() {
-    const { data, setData, post, processing, errors } = useForm({
-        title: "",
-        media: null,
-        caption: "",
-        platforms: [],
-        selectedAccounts: {},
-        scheduled_at: "",
+export default function Create({ post = null }) {
+    const isEditMode = !!post;
+
+    const {
+        data,
+        setData,
+        post: store,
+        put,
+        processing,
+        errors,
+    } = useForm({
+        title: post?.title || "",
+        media: post?.media || null, // Note: Handling file inputs for edit is tricky, usually requires separate handling for existing vs new media
+        caption: post?.caption || "",
+        platforms: post?.platforms || [],
+        selectedAccounts: post?.selectedAccounts || {},
+        scheduled_at: post?.scheduled_at || "",
     });
 
     const [currentStep, setCurrentStep] = React.useState(1);
@@ -30,7 +40,7 @@ export default function Schedule() {
         { number: 2, name: "Select Platforms", icon: <PublicIcon /> },
     ];
 
-    // Mock account data
+    // Mock account data (Keep existing mock data...)
     const mockAccounts = {
         instagram: [
             {
@@ -170,15 +180,21 @@ export default function Schedule() {
         if (currentStep < totalSteps) {
             nextStep();
         } else {
-            post(route("posts.store"));
+            if (isEditMode) {
+                // Update existing post
+                put(route("posts.update", post.id));
+            } else {
+                // Create new post
+                store(route("posts.store"));
+            }
         }
     };
 
     return (
         <DashboardLayout>
-            <Head title="Schedule Post" />
+            <Head title={isEditMode ? "Edit Post" : "Schedule Post"} />
 
-            <div className="max-w-7xl mx-auto py-6 px-4">
+            <div className="max-w-full mx-auto py-6 px-4">
                 {/* Step Indicator */}
                 <div className="mb-8">
                     <div className="flex items-center justify-center gap-4">
@@ -231,7 +247,7 @@ export default function Schedule() {
                     {currentStep === 1 && (
                         <div className="bg-white dark:bg-gray-800 p-8 rounded-3xl shadow-lg border border-gray-100 dark:border-gray-700 space-y-6 animate-fade-in-up">
                             <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-6">
-                                Create Your Post
+                                {isEditMode ? "Edit Post" : "Create Your Post"}
                             </h2>
 
                             {/* Title */}
@@ -270,7 +286,7 @@ export default function Schedule() {
 
                             {/* Caption */}
                             <div>
-                                <label className="block text-sm font-semibold text-gray-900 dark:text-gray-100 mb-3 flex justify-between">
+                                <label className="flex justify-between text-sm font-semibold text-gray-900 dark:text-gray-100 mb-3">
                                     <span>Caption</span>
                                     <span
                                         className={`text-xs px-2 py-1 rounded-full ${
@@ -484,7 +500,9 @@ export default function Schedule() {
                                 </>
                             ) : (
                                 <>
-                                    Schedule Post
+                                    {isEditMode
+                                        ? "Update Post"
+                                        : "Schedule Post"}
                                     <RocketLaunchIcon className="w-5 h-5" />
                                 </>
                             )}
