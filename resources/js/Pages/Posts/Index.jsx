@@ -15,6 +15,9 @@ import ChevronLeftIcon from "@mui/icons-material/ChevronLeft";
 import ChevronRightIcon from "@mui/icons-material/ChevronRight";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import { route } from "ziggy-js";
+import Button from "@/Components/UI/Button";
+import Badge from "@/Components/UI/Badge";
+import TextInput from "@/Components/UI/TextInput";
 
 // Generate 30+ Mock Posts
 const generateMockPosts = () => {
@@ -190,18 +193,18 @@ export default function Index({ posts = [] }) {
         }, {});
     };
 
-    const getStatusColor = (status) => {
+    const getStatusVariant = (status) => {
         switch (status) {
             case "published":
-                return "bg-green-100 text-green-800 dark:bg-green-900/30 dark:text-green-300";
+                return "success";
             case "scheduled":
-                return "bg-blue-100 text-blue-800 dark:bg-blue-900/30 dark:text-blue-300";
+                return "info";
             case "draft":
-                return "bg-gray-100 text-gray-800 dark:bg-gray-700 dark:text-gray-300";
+                return "neutral";
             case "failed":
-                return "bg-red-100 text-red-800 dark:bg-red-900/30 dark:text-red-300";
+                return "error";
             default:
-                return "bg-gray-100 text-gray-800";
+                return "neutral";
         }
     };
 
@@ -257,18 +260,20 @@ export default function Index({ posts = [] }) {
                                 ? This action cannot be undone.
                             </p>
                             <div className="flex gap-3 w-full">
-                                <button
+                                <Button
                                     onClick={() => setPostToDelete(null)}
-                                    className="flex-1 px-4 py-2 bg-gray-100 dark:bg-gray-700 hover:bg-gray-200 dark:hover:bg-gray-600 text-gray-700 dark:text-gray-300 rounded-xl font-medium transition-colors"
+                                    variant="secondary"
+                                    className="flex-1"
                                 >
                                     Cancel
-                                </button>
-                                <button
+                                </Button>
+                                <Button
                                     onClick={confirmDelete}
-                                    className="flex-1 px-4 py-2 bg-red-600 hover:bg-red-700 text-white rounded-xl font-medium shadow-lg hover:shadow-red-500/30 transition-all transform hover:-translate-y-0.5"
+                                    variant="danger"
+                                    className="flex-1 shadow-lg hover:shadow-red-500/30"
                                 >
                                     Delete
-                                </button>
+                                </Button>
                             </div>
                         </div>
                     </div>
@@ -281,13 +286,13 @@ export default function Index({ posts = [] }) {
                         <h1 className="text-2xl font-semibold text-gray-900 dark:text-gray-100">
                             All Posts
                         </h1>
-                        <Link
+                        <Button
                             href={route("posts.create")}
-                            className="bg-primary-600 hover:bg-primary-700 text-white font-bold py-2 px-4 rounded-xl inline-flex items-center gap-2 transform transition hover:scale-105 shadow-md"
+                            className="transform transition hover:scale-105 shadow-md"
+                            icon={CreateIcon}
                         >
-                            <CreateIcon />
-                            <span>Create Post</span>
-                        </Link>
+                            Create Post
+                        </Button>
                     </div>
 
                     <div className="bg-white dark:bg-gray-800 overflow-hidden shadow-xl sm:rounded-2xl border border-gray-100 dark:border-gray-700 font-sans">
@@ -295,15 +300,15 @@ export default function Index({ posts = [] }) {
                         <div className="p-4 border-b border-gray-200 dark:border-gray-700 flex flex-col sm:flex-row justify-between items-center gap-4">
                             {/* Search */}
                             <div className="relative w-full sm:w-72">
-                                <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                                <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none z-10">
                                     <SearchIcon className="h-5 w-5 text-gray-400" />
                                 </div>
-                                <input
+                                <TextInput
                                     type="text"
                                     placeholder="Search posts..."
-                                    className="block w-full pl-10 pr-4 py-2.5 border-none bg-gray-100 dark:bg-gray-700/50 rounded-xl text-sm text-gray-900 dark:text-gray-100 placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-primary-500/50 transition-all"
                                     value={searchQuery}
                                     onChange={handleSearch}
+                                    inputClassName="!pl-10 !py-2.5 !bg-gray-100 dark:!bg-gray-700/50 !border-none"
                                 />
                             </div>
 
@@ -538,13 +543,14 @@ export default function Index({ posts = [] }) {
                                                         </td>
                                                         {/* Status Column */}
                                                         <td className="px-6 py-4 whitespace-nowrap">
-                                                            <span
-                                                                className={`px-3 py-1 inline-flex text-xs leading-5 font-semibold rounded-full capitalize shadow-sm ${getStatusColor(
+                                                            <Badge
+                                                                variant={getStatusVariant(
                                                                     post.status
-                                                                )}`}
+                                                                )}
+                                                                className="uppercase"
                                                             >
                                                                 {post.status}
-                                                            </span>
+                                                            </Badge>
                                                         </td>
                                                         {/* Schedule Column */}
                                                         <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500 dark:text-gray-400">

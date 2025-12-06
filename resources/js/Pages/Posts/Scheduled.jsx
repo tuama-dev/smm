@@ -5,10 +5,13 @@ import { route } from "ziggy-js";
 import {
     ChevronLeft as ChevronLeftIcon,
     ChevronRight as ChevronRightIcon,
-    Search as SearchIcon,
     Edit as EditIcon,
     ExpandMore as ExpandMoreIcon,
+    Search as SearchIcon,
 } from "@mui/icons-material";
+import Badge from "@/Components/UI/Badge";
+import Button from "@/Components/UI/Button";
+import TextInput from "@/Components/UI/TextInput";
 import {
     DndContext,
     useSensor,
@@ -114,25 +117,20 @@ const generateMockScheduledPosts = () => {
 
 // ---- COMPONENTS ----
 
-const StatusBadge = ({ status }) => {
-    const colors = {
-        draft: "bg-gray-100 text-gray-800 dark:bg-gray-700 dark:text-gray-300",
-        scheduled:
-            "bg-blue-100 text-blue-800 dark:bg-blue-900/30 dark:text-blue-300",
-        published:
-            "bg-green-100 text-green-800 dark:bg-green-900/30 dark:text-green-300",
-        failed: "bg-red-100 text-red-800 dark:bg-red-900/30 dark:text-red-300",
-    };
-
-    return (
-        <span
-            className={`px-2 py-0.5 text-[10px] font-medium rounded-md capitalize ${
-                colors[status] || colors.draft
-            }`}
-        >
-            {status}
-        </span>
-    );
+// Status Variant Helper
+const getStatusVariant = (status) => {
+    switch (status) {
+        case "published":
+            return "success";
+        case "scheduled":
+            return "info";
+        case "draft":
+            return "neutral";
+        case "failed":
+            return "error";
+        default:
+            return "neutral";
+    }
 };
 
 // Draggable Post Card
@@ -192,7 +190,12 @@ const DraggablePost = ({ post }) => {
                     <span className="text-[10px] text-gray-500 dark:text-gray-400 font-mono">
                         {post.time}
                     </span>
-                    <StatusBadge status={post.status} />
+                    <Badge
+                        variant={getStatusVariant(post.status)}
+                        className="text-[10px]! px-2! py-0.5!"
+                    >
+                        {post.status}
+                    </Badge>
                 </div>
                 <span
                     className="font-medium text-gray-900 dark:text-white truncate pr-4"
@@ -454,17 +457,16 @@ export default function Scheduled() {
                             <div className="flex flex-col sm:flex-row gap-4 w-full xl:w-auto">
                                 {/* Search Bar */}
                                 <div className="relative flex-1 sm:min-w-[280px]">
-                                    <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                                    <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none z-10">
                                         <SearchIcon className="h-5 w-5 text-gray-400" />
                                     </div>
-                                    <input
-                                        type="text"
+                                    <TextInput
                                         placeholder="Search..."
-                                        className="block w-full pl-10 pr-4 py-2 border-none bg-white dark:bg-gray-800 rounded-xl text-sm text-gray-900 dark:text-gray-100 placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-primary-500/50 shadow-sm transition-all"
                                         value={searchQuery}
                                         onChange={(e) =>
                                             setSearchQuery(e.target.value)
                                         }
+                                        inputClassName="pl-10! py-2! bg-white! dark:bg-gray-800! border-none! shadow-sm!"
                                     />
                                 </div>
                             </div>
@@ -482,7 +484,7 @@ export default function Scheduled() {
                             <div className="flex items-center gap-2">
                                 <button
                                     onClick={() => changeMonth(-1)}
-                                    className="p-1.5 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-full border border-gray-200 dark:border-gray-600 transition-colors"
+                                    className="p-1.5 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-full border border-gray-200 dark:border-gray-600 transition-colors cursor-pointer"
                                 >
                                     <ChevronLeftIcon className="w-5 h-5 text-gray-600 dark:text-gray-400" />
                                 </button>
@@ -650,17 +652,18 @@ export default function Scheduled() {
 
                                 <button
                                     onClick={() => changeMonth(1)}
-                                    className="p-1.5 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-full border border-gray-200 dark:border-gray-600 transition-colors"
+                                    className="p-1.5 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-full border border-gray-200 dark:border-gray-600 transition-colors cursor-pointer"
                                 >
                                     <ChevronRightIcon className="w-5 h-5 text-gray-600 dark:text-gray-400" />
                                 </button>
 
-                                <button
+                                <Button
                                     onClick={() => setCurrentDate(new Date())}
-                                    className="ml-2 text-sm font-medium text-white bg-primary-600 hover:bg-primary-700 px-3 py-2 rounded-lg transition-colors shadow-sm"
+                                    size="sm"
+                                    className="ml-2 py-2!"
                                 >
                                     Today
-                                </button>
+                                </Button>
                             </div>
                         </div>
 
@@ -682,7 +685,14 @@ export default function Scheduled() {
                                 <span className="text-[10px] text-gray-500 dark:text-gray-400 font-mono">
                                     {activePost.time}
                                 </span>
-                                <StatusBadge status={activePost.status} />
+                                <Badge
+                                    variant={getStatusVariant(
+                                        activePost.status
+                                    )}
+                                    className="text-[10px]! px-2! py-0.5!"
+                                >
+                                    {activePost.status}
+                                </Badge>
                             </div>
                             <span className="font-medium text-gray-900 dark:text-white text-sm">
                                 {activePost.title}

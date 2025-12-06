@@ -1,6 +1,8 @@
 import { Link, useForm } from "@inertiajs/react";
 import AuthLayout from "@/Layouts/AuthLayout";
 import SocialButton from "@/Components/SocialButton";
+import Button from "@/Components/UI/Button";
+import TextInput from "@/Components/UI/TextInput";
 import { route } from "ziggy-js";
 
 export default function SignIn({ error }) {
@@ -60,57 +62,31 @@ export default function SignIn({ error }) {
                 </div>
 
                 {/* Sign In Form */}
-                <form onSubmit={handleSubmit} className="space-y-3">
-                    {/* Email Field */}
-                    <div>
-                        <label
-                            htmlFor="email"
-                            className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1.5"
-                        >
-                            Email Address
-                        </label>
-                        <input
-                            id="email"
-                            type="email"
-                            value={data.email}
-                            onChange={(e) => setData("email", e.target.value)}
-                            className="w-full px-3 py-2.5 text-sm rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-white placeholder-gray-400 dark:placeholder-gray-500 focus:ring-2 focus:ring-primary-500 focus:border-transparent transition-all"
-                            placeholder="john@example.com"
-                            autoComplete="email"
-                            autoFocus
-                        />
-                        {errors.email && (
-                            <p className="mt-1 text-xs text-red-600 dark:text-red-400">
-                                {errors.email}
-                            </p>
-                        )}
-                    </div>
+                <form onSubmit={handleSubmit} className="space-y-4">
+                    <TextInput
+                        id="email"
+                        label="Email Address"
+                        type="email"
+                        value={data.email}
+                        onChange={(e) => setData("email", e.target.value)}
+                        placeholder="john@example.com"
+                        autoComplete="email"
+                        autoFocus
+                        error={errors.email}
+                        required
+                    />
 
-                    {/* Password Field */}
-                    <div>
-                        <label
-                            htmlFor="password"
-                            className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1.5"
-                        >
-                            Password
-                        </label>
-                        <input
-                            id="password"
-                            type="password"
-                            value={data.password}
-                            onChange={(e) =>
-                                setData("password", e.target.value)
-                            }
-                            className="w-full px-3 py-2.5 text-sm rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-white placeholder-gray-400 dark:placeholder-gray-500 focus:ring-2 focus:ring-primary-500 focus:border-transparent transition-all"
-                            placeholder="••••••••"
-                            autoComplete="current-password"
-                        />
-                        {errors.password && (
-                            <p className="mt-1 text-xs text-red-600 dark:text-red-400">
-                                {errors.password}
-                            </p>
-                        )}
-                    </div>
+                    <TextInput
+                        id="password"
+                        label="Password"
+                        type="password"
+                        value={data.password}
+                        onChange={(e) => setData("password", e.target.value)}
+                        placeholder="••••••••"
+                        autoComplete="current-password"
+                        error={errors.password}
+                        required
+                    />
 
                     {/* Remember Me & Forgot Password */}
                     <div className="flex items-center justify-between py-1">
@@ -140,13 +116,14 @@ export default function SignIn({ error }) {
                     </div>
 
                     {/* Submit Button */}
-                    <button
+                    <Button
                         type="submit"
+                        className="w-full mt-2"
                         disabled={processing}
-                        className="w-full mt-4 px-4 py-2.5 text-sm bg-primary-500 hover:bg-primary-600 text-white font-semibold rounded-lg shadow-md hover:shadow-lg transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed cursor-pointer"
+                        isLoading={processing}
                     >
-                        {processing ? "Signing In..." : "Sign In"}
-                    </button>
+                        Sign In
+                    </Button>
                 </form>
 
                 {/* Sign Up Link */}

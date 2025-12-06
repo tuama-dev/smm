@@ -12,6 +12,9 @@ import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
 import RocketLaunchIcon from "@mui/icons-material/RocketLaunch";
 import { route } from "ziggy-js";
+import TextInput from "@/Components/UI/TextInput";
+import TextArea from "@/Components/UI/TextArea";
+import Button from "@/Components/UI/Button";
 
 export default function Create({ post = null }) {
     const isEditMode = !!post;
@@ -251,28 +254,23 @@ export default function Create({ post = null }) {
                             </h2>
 
                             {/* Title */}
-                            <div>
-                                <label className="block text-sm font-semibold text-gray-900 dark:text-gray-100 mb-3">
-                                    Post Title{" "}
-                                    <span className="text-gray-400 font-normal">
-                                        (Internal Name)
-                                    </span>
-                                </label>
-                                <input
-                                    type="text"
-                                    className="w-full rounded-xl border-gray-300 dark:border-gray-600 bg-gray-50 dark:bg-gray-900/50 text-gray-900 dark:text-white focus:ring-2 focus:ring-primary-500/20 focus:border-primary-500 p-4"
-                                    placeholder="e.g., Summer Campaign Launch"
-                                    value={data.title}
-                                    onChange={(e) =>
-                                        setData("title", e.target.value)
-                                    }
-                                />
-                                {errors.title && (
-                                    <p className="mt-2 text-sm text-red-600">
-                                        {errors.title}
-                                    </p>
-                                )}
-                            </div>
+                            <TextInput
+                                label={
+                                    <>
+                                        Post Title{" "}
+                                        <span className="text-gray-400 font-normal">
+                                            (Internal Name)
+                                        </span>
+                                    </>
+                                }
+                                value={data.title}
+                                onChange={(e) =>
+                                    setData("title", e.target.value)
+                                }
+                                placeholder="e.g., Summer Campaign Launch"
+                                error={errors.title}
+                                inputClassName="!p-4 !rounded-xl"
+                            />
 
                             {/* Media */}
                             <div>
@@ -285,55 +283,43 @@ export default function Create({ post = null }) {
                             </div>
 
                             {/* Caption */}
-                            <div>
-                                <label className="flex justify-between text-sm font-semibold text-gray-900 dark:text-gray-100 mb-3">
-                                    <span>Caption</span>
-                                    <span
-                                        className={`text-xs px-2 py-1 rounded-full ${
-                                            data.caption.length > 2000
-                                                ? "bg-red-100 text-red-600 dark:bg-red-900/20 dark:text-red-400"
-                                                : "bg-gray-100 text-gray-500 dark:bg-gray-700 dark:text-gray-400"
-                                        }`}
-                                    >
-                                        {data.caption.length} / 2200
-                                    </span>
-                                </label>
-                                <textarea
-                                    rows="6"
-                                    className="w-full rounded-xl border-gray-300 dark:border-gray-600 bg-gray-50 dark:bg-gray-900/50 text-gray-900 dark:text-white focus:ring-2 focus:ring-primary-500/20 focus:border-primary-500 resize-none p-4"
-                                    placeholder="Write a catchy caption..."
-                                    value={data.caption}
-                                    onChange={(e) =>
-                                        setData("caption", e.target.value)
-                                    }
-                                />
-                                {errors.caption && (
-                                    <p className="mt-2 text-sm text-red-600">
-                                        {errors.caption}
-                                    </p>
-                                )}
-                            </div>
+                            <TextArea
+                                label={
+                                    <div className="flex justify-between w-full">
+                                        <span>Caption</span>
+                                        <span
+                                            className={`text-xs px-2 py-1 rounded-full ${
+                                                data.caption.length > 2000
+                                                    ? "bg-red-100 text-red-600 dark:bg-red-900/20 dark:text-red-400"
+                                                    : "bg-gray-100 text-gray-500 dark:bg-gray-700 dark:text-gray-400"
+                                            }`}
+                                        >
+                                            {data.caption.length} / 2200
+                                        </span>
+                                    </div>
+                                }
+                                rows={6}
+                                value={data.caption}
+                                onChange={(e) =>
+                                    setData("caption", e.target.value)
+                                }
+                                placeholder="Write a catchy caption..."
+                                error={errors.caption}
+                                inputClassName="!p-4 !rounded-xl"
+                            />
 
                             {/* Schedule Time */}
-                            <div>
-                                <label className="block text-sm font-semibold text-gray-900 dark:text-gray-100 mb-3">
-                                    Schedule Time
-                                </label>
-                                <input
-                                    type="datetime-local"
-                                    className="w-full rounded-xl border-gray-300 dark:border-gray-600 bg-gray-50 dark:bg-gray-900/50 text-gray-900 dark:text-white focus:ring-2 focus:ring-primary-500/20 focus:border-primary-500 p-4"
-                                    value={data.scheduled_at}
-                                    onChange={(e) =>
-                                        setData("scheduled_at", e.target.value)
-                                    }
-                                    min={new Date().toISOString().slice(0, 16)}
-                                />
-                                {errors.scheduled_at && (
-                                    <p className="mt-2 text-sm text-red-600">
-                                        {errors.scheduled_at}
-                                    </p>
-                                )}
-                            </div>
+                            <TextInput
+                                label="Schedule Time"
+                                type="datetime-local"
+                                value={data.scheduled_at}
+                                onChange={(e) =>
+                                    setData("scheduled_at", e.target.value)
+                                }
+                                min={new Date().toISOString().slice(0, 16)}
+                                error={errors.scheduled_at}
+                                inputClassName="!p-4 !rounded-xl"
+                            />
                         </div>
                     )}
 
@@ -477,36 +463,35 @@ export default function Create({ post = null }) {
                     {/* Navigation Buttons */}
                     <div className="flex gap-4">
                         {currentStep > 1 && (
-                            <button
-                                type="button"
+                            <Button
                                 onClick={previousStep}
-                                className="flex-1 py-4 px-6 bg-gray-200 dark:bg-gray-700 text-gray-700 dark:text-gray-300 font-semibold rounded-xl hover:bg-gray-300 dark:hover:bg-gray-600 transition-colors flex items-center justify-center gap-2"
+                                variant="secondary"
+                                className="flex-1 py-4 font-semibold rounded-xl text-gray-700 dark:text-gray-300 hover:bg-gray-300 dark:hover:bg-gray-600 bg-gray-200 dark:bg-gray-700 border-none"
+                                icon={ArrowBackIcon}
                             >
-                                <ArrowBackIcon className="w-5 h-5" />
                                 Back
-                            </button>
+                            </Button>
                         )}
-                        <button
+                        <Button
                             type="submit"
                             disabled={processing}
-                            className="flex-1 py-4 px-6 bg-linear-to-br from-primary-500 via-purple-500 to-pink-500 text-white font-semibold rounded-xl hover:shadow-xl transition-all disabled:opacity-50 flex items-center justify-center gap-2"
+                            isLoading={processing}
+                            className="flex-1 py-4 font-semibold rounded-xl bg-linear-to-br from-primary-500 via-purple-500 to-pink-500 hover:shadow-xl border-none"
                         >
-                            {processing ? (
-                                "Processing..."
-                            ) : currentStep < totalSteps ? (
+                            {currentStep < totalSteps ? (
                                 <>
                                     Next
-                                    <ArrowForwardIcon className="w-5 h-5" />
+                                    <ArrowForwardIcon className="w-5 h-5 ml-2" />
                                 </>
                             ) : (
                                 <>
                                     {isEditMode
                                         ? "Update Post"
                                         : "Schedule Post"}
-                                    <RocketLaunchIcon className="w-5 h-5" />
+                                    <RocketLaunchIcon className="w-5 h-5 ml-2" />
                                 </>
                             )}
-                        </button>
+                        </Button>
                     </div>
                 </form>
             </div>

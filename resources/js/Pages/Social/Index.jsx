@@ -10,6 +10,9 @@ import {
 } from "@mui/icons-material";
 import { useState } from "react";
 import { AiOutlineTikTok } from "react-icons/ai";
+import Button from "@/Components/UI/Button";
+import Card from "@/Components/UI/Card";
+import Badge from "@/Components/UI/Badge";
 
 export default function Index({ auth }) {
     // Social Accounts Page Component
@@ -116,21 +119,25 @@ export default function Index({ auth }) {
                             pages.
                         </p>
                     </div>
-                    <button className="flex items-center justify-center gap-2 px-4 py-2 text-sm font-medium text-white transition-all transform rounded-lg bg-linear-to-r from-primary-600 to-purple-600 hover:from-primary-700 hover:to-purple-700 hover:scale-105 shadow-lg shadow-primary-500/30 cursor-pointer!">
-                        <Add className="w-5 h-5" />
+                    <Button
+                        icon={Add}
+                        className="bg-linear-to-r from-primary-600 to-purple-600 hover:from-primary-700 hover:to-purple-700 hover:scale-105 shadow-lg shadow-primary-500/30"
+                    >
                         Add New Account
-                    </button>
+                    </Button>
                 </div>
 
                 {/* Platforms Grid */}
                 <div className="grid grid-cols-1 gap-6 md:grid-cols-2 xl:grid-cols-3">
                     {platforms.map((platform) => (
-                        <div
+                        <Card
                             key={platform.id}
-                            className={`group relative overflow-hidden rounded-2xl border transition-all duration-300 hover:shadow-xl hover:-translate-y-1 bg-white dark:bg-gray-800 ${
+                            hoverEffect={true}
+                            noPadding={true}
+                            className={`group relative ${
                                 platform.connected
-                                    ? "border-gray-200 dark:border-gray-700"
-                                    : "border-dashed border-gray-300 dark:border-gray-700 opacity-90 hover:opacity-100"
+                                    ? ""
+                                    : "border-dashed! border-gray-300! dark:border-gray-700! opacity-90 hover:opacity-100"
                             }`}
                         >
                             {/* Decorative Background Gradient (subtle) */}
@@ -148,18 +155,17 @@ export default function Index({ auth }) {
                                     </div>
                                     <div className="flex items-center gap-2">
                                         {platform.status === "coming_soon" ? (
-                                            <span className="px-2.5 py-1 text-xs font-medium text-amber-600 bg-amber-100 dark:text-amber-400 dark:bg-amber-900/30 rounded-full border border-amber-200 dark:border-amber-800">
+                                            <Badge variant="warning">
                                                 Coming Soon
-                                            </span>
+                                            </Badge>
                                         ) : platform.connected ? (
-                                            <span className="flex items-center gap-1 px-2.5 py-1 text-xs font-medium text-green-700 bg-green-100 dark:text-green-400 dark:bg-green-900/30 rounded-full border border-green-200 dark:border-green-800">
-                                                <div className="w-1.5 h-1.5 rounded-full bg-green-500 animate-pulse" />
+                                            <Badge variant="success" pulsing>
                                                 Active
-                                            </span>
+                                            </Badge>
                                         ) : (
-                                            <span className="px-2.5 py-1 text-xs font-medium text-gray-600 bg-gray-100 dark:text-gray-400 dark:bg-gray-700 rounded-full">
+                                            <Badge variant="neutral">
                                                 Not Connected
-                                            </span>
+                                            </Badge>
                                         )}
                                     </div>
                                 </div>
@@ -187,18 +193,20 @@ export default function Index({ auth }) {
                                                     />
                                                 )
                                             )}
-                                            <button
+                                            <Button
                                                 onClick={() =>
                                                     handleConnect(platform.id)
                                                 }
-                                                className="w-full mt-2 py-2 text-xs font-medium text-primary-600 dark:text-primary-400 hover:text-primary-700 dark:hover:text-primary-300 border border-dashed border-primary-200 dark:border-primary-800 rounded-lg hover:bg-primary-50 dark:hover:bg-primary-900/10 transition-colors flex items-center justify-center gap-1 cursor-pointer!"
+                                                variant="outline"
+                                                size="sm"
+                                                icon={Add}
+                                                className="w-full mt-2 border-dashed border-primary-200 dark:border-primary-800 hover:bg-primary-50 dark:hover:bg-primary-900/10"
                                             >
-                                                <Add className="w-4 h-4" />{" "}
                                                 Connect another profile
-                                            </button>
+                                            </Button>
                                         </div>
                                     ) : (
-                                        <button
+                                        <Button
                                             disabled={
                                                 platform.status ===
                                                 "coming_soon"
@@ -208,21 +216,22 @@ export default function Index({ auth }) {
                                                     "coming_soon" &&
                                                 handleConnect(platform.id)
                                             }
-                                            className={`w-full flex items-center justify-center gap-2 py-2.5 text-sm font-semibold rounded-lg transition-all shadow-sm hover:shadow ${
+                                            variant={
                                                 platform.status ===
                                                 "coming_soon"
-                                                    ? "text-gray-400 dark:text-gray-500 bg-gray-100 dark:bg-gray-800 border border-gray-200 dark:border-gray-700 cursor-not-allowed opacity-75"
-                                                    : "text-gray-700 dark:text-gray-200 bg-white dark:bg-gray-800 border border-gray-300 dark:border-gray-600 hover:bg-gray-50 dark:hover:bg-gray-700 hover:border-gray-400 dark:hover:border-gray-500 cursor-pointer!"
-                                            }`}
+                                                    ? "secondary" // visually neutral
+                                                    : "secondary"
+                                            }
+                                            className="w-full font-semibold"
                                         >
                                             {platform.status === "coming_soon"
                                                 ? "Coming Soon"
                                                 : `Connect ${platform.name}`}
-                                        </button>
+                                        </Button>
                                     )}
                                 </div>
                             </div>
-                        </div>
+                        </Card>
                     ))}
                 </div>
             </div>
