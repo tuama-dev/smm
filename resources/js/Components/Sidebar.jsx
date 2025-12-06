@@ -37,9 +37,9 @@ export default function Sidebar({ open, setOpen }) {
         },
         {
             name: "Social Accounts",
-            href: "/accounts", // No route defined yet
+            href: route("social.index"),
             icon: "UserGroupIcon",
-            current: window.location.pathname.startsWith("/accounts"),
+            current: route().current("social.index"),
         },
         {
             name: "Posts",

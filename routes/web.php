@@ -32,6 +32,9 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::post('/logout', LogoutController::class)->name('logout');
 
     Route::get('/dashboard', [App\Http\Controllers\DashboardController::class, 'index'])->name('dashboard');
+    Route::get('/social', function () {
+        return Inertia::render('Social/Index');
+    })->name('social.index');
 
     // Post Scheduling Routes
     // Post Scheduling Routes
