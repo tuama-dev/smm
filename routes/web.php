@@ -11,10 +11,10 @@ use Inertia\Inertia;
 Route::middleware('guest')->group(function () {
     Route::get('/signup', [RegisterController::class, 'create'])->name('signup');
     Route::post('/signup', [RegisterController::class, 'store']);
-    
+
     Route::get('/signin', [LoginController::class, 'create'])->name('signin');
     Route::post('/signin', [LoginController::class, 'store']);
-    
+
     // Social authentication routes - extensible for any provider
     Route::get('/auth/{provider}', [SocialAuthController::class, 'redirect'])->name('social.redirect');
     Route::get('/auth/{provider}/callback', [SocialAuthController::class, 'callback'])->name('social.callback');
@@ -30,7 +30,7 @@ Route::middleware('auth')->group(function () {
 // Authenticated routes
 Route::middleware(['auth', 'verified'])->group(function () {
     Route::post('/logout', LogoutController::class)->name('logout');
-    
+
     Route::get('/dashboard', [App\Http\Controllers\DashboardController::class, 'index'])->name('dashboard');
 
     // Post Scheduling Routes

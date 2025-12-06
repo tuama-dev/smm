@@ -3,7 +3,6 @@
 use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Support\Facades\Hash;
-use Illuminate\Support\Facades\RateLimiter;
 
 uses(RefreshDatabase::class);
 
@@ -251,7 +250,7 @@ it('uses separate rate limiter per email and IP', function () {
         'email' => 'jane@example.com',
         'password' => 'wrongpassword',
     ])->assertSessionHasErrors('email');
-    
+
     // Error should be about credentials, not throttling
     $errors = session('errors')->getBag('default')->get('email');
     expect($errors[0])->not->toContain('Too many login attempts');

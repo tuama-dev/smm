@@ -28,7 +28,7 @@ class RegisterController extends Controller
     public function store(RegisterRequest $request)
     {
         $user = $this->authService->register($request->validated());
-        
+
         // Send email verification notification
         $user->sendEmailVerificationNotification();
 
