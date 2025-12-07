@@ -53,6 +53,7 @@ it('creates a new user from google oauth', function () {
     $socialiteUser->shouldReceive('getId')->andReturn('google-123');
     $socialiteUser->shouldReceive('getEmail')->andReturn('john@example.com');
     $socialiteUser->shouldReceive('getName')->andReturn('John Doe');
+    $socialiteUser->shouldReceive('getAvatar')->andReturn(null);
 
     Socialite::shouldReceive('driver->user')->andReturn($socialiteUser);
 
@@ -71,6 +72,7 @@ it('creates user with verified email from social login', function () {
     $socialiteUser->shouldReceive('getId')->andReturn('google-123');
     $socialiteUser->shouldReceive('getEmail')->andReturn('john@example.com');
     $socialiteUser->shouldReceive('getName')->andReturn('John Doe');
+    $socialiteUser->shouldReceive('getAvatar')->andReturn(null);
 
     Socialite::shouldReceive('driver->user')->andReturn($socialiteUser);
 
@@ -85,6 +87,7 @@ it('creates user without password for social login', function () {
     $socialiteUser->shouldReceive('getId')->andReturn('google-123');
     $socialiteUser->shouldReceive('getEmail')->andReturn('john@example.com');
     $socialiteUser->shouldReceive('getName')->andReturn('John Doe');
+    $socialiteUser->shouldReceive('getAvatar')->andReturn(null);
 
     Socialite::shouldReceive('driver->user')->andReturn($socialiteUser);
 
@@ -99,6 +102,7 @@ it('authenticates user after social login', function () {
     $socialiteUser->shouldReceive('getId')->andReturn('google-123');
     $socialiteUser->shouldReceive('getEmail')->andReturn('john@example.com');
     $socialiteUser->shouldReceive('getName')->andReturn('John Doe');
+    $socialiteUser->shouldReceive('getAvatar')->andReturn(null);
 
     Socialite::shouldReceive('driver->user')->andReturn($socialiteUser);
 
@@ -137,6 +141,7 @@ it('logs in existing user with same provider', function () {
     $socialiteUser->shouldReceive('getId')->andReturn('google-123');
     $socialiteUser->shouldReceive('getEmail')->andReturn('john@example.com');
     $socialiteUser->shouldReceive('getName')->andReturn('John Doe');
+    $socialiteUser->shouldReceive('getAvatar')->andReturn(null);
 
     Socialite::shouldReceive('driver->user')->andReturn($socialiteUser);
 
@@ -158,6 +163,7 @@ it('links social account to existing email', function () {
     $socialiteUser->shouldReceive('getId')->andReturn('google-123');
     $socialiteUser->shouldReceive('getEmail')->andReturn('john@example.com');
     $socialiteUser->shouldReceive('getName')->andReturn('John Doe');
+    $socialiteUser->shouldReceive('getAvatar')->andReturn(null);
 
     Socialite::shouldReceive('driver->user')->andReturn($socialiteUser);
 
@@ -182,6 +188,7 @@ it('updates user name from social provider if different', function () {
     $socialiteUser->shouldReceive('getId')->andReturn('google-123');
     $socialiteUser->shouldReceive('getEmail')->andReturn('john@example.com');
     $socialiteUser->shouldReceive('getName')->andReturn('New Name');
+    $socialiteUser->shouldReceive('getAvatar')->andReturn(null);
 
     Socialite::shouldReceive('driver->user')->andReturn($socialiteUser);
 
@@ -204,6 +211,7 @@ it('allows user to link multiple social providers', function () {
     $socialiteUser->shouldReceive('getId')->andReturn('instagram-456');
     $socialiteUser->shouldReceive('getEmail')->andReturn('john@example.com');
     $socialiteUser->shouldReceive('getName')->andReturn('John Doe');
+    $socialiteUser->shouldReceive('getAvatar')->andReturn(null);
 
     Socialite::shouldReceive('driver->user')->andReturn($socialiteUser);
 
@@ -221,6 +229,7 @@ it('handles missing email from provider gracefully', function () {
     $socialiteUser->shouldReceive('getId')->andReturn('google-123');
     $socialiteUser->shouldReceive('getEmail')->andReturn(null);
     $socialiteUser->shouldReceive('getName')->andReturn('John Doe');
+    $socialiteUser->shouldReceive('getAvatar')->andReturn(null);
 
     Socialite::shouldReceive('driver->user')->andReturn($socialiteUser);
 
@@ -233,6 +242,7 @@ it('handles missing name from provider', function () {
     $socialiteUser->shouldReceive('getId')->andReturn('google-123');
     $socialiteUser->shouldReceive('getEmail')->andReturn('john@example.com');
     $socialiteUser->shouldReceive('getName')->andReturn(null);
+    $socialiteUser->shouldReceive('getAvatar')->andReturn(null);
 
     Socialite::shouldReceive('driver->user')->andReturn($socialiteUser);
 
@@ -257,7 +267,8 @@ it('works with different provider formats', function () {
         $socialiteUser = m::mock(SocialiteUser::class);
         $socialiteUser->shouldReceive('getId')->andReturn("{$provider}-123");
         $socialiteUser->shouldReceive('getEmail')->andReturn("{$provider}@example.com");
-        $socialiteUser->shouldReceive('getName')->andReturn(ucfirst($provider).' User');
+        $socialiteUser->shouldReceive('getName')->andReturn(ucfirst($provider) . ' User');
+        $socialiteUser->shouldReceive('getAvatar')->andReturn(null);
 
         Socialite::shouldReceive('driver->user')->andReturn($socialiteUser);
 
@@ -286,6 +297,7 @@ it('regenerates session after social login', function () {
     $socialiteUser->shouldReceive('getId')->andReturn('google-123');
     $socialiteUser->shouldReceive('getEmail')->andReturn('john@example.com');
     $socialiteUser->shouldReceive('getName')->andReturn('John Doe');
+    $socialiteUser->shouldReceive('getAvatar')->andReturn(null);
 
     Socialite::shouldReceive('driver->user')->andReturn($socialiteUser);
 
