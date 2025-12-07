@@ -54,6 +54,10 @@ class SocialAuthService
                 'provider_id' => $providerUser->getId(),
             ]);
 
+            if (! $user->hasVerifiedEmail()) {
+                $user->markEmailAsVerified();
+            }
+
             return $user;
         }
 
@@ -61,9 +65,20 @@ class SocialAuthService
         return User::create([
             'name' => $providerUser->getName(),
             'email' => $providerUser->getEmail(),
+            'avatar' => $providerUser->getAvatar(),
             'provider' => $provider,
             'provider_id' => $providerUser->getId(),
             'password' => null, // Social login users don't have a password
         ]);
+<<<<<<< Updated upstream
+=======
+
+        $user->markEmailAsVerified();
+
+        // Assign customer role to new user
+        $user->assignRole('customer');
+
+        return $user;
+>>>>>>> Stashed changes
     }
 }
