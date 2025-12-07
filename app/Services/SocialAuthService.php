@@ -62,7 +62,7 @@ class SocialAuthService
         }
 
         // Create new user
-        return User::create([
+        $user = User::create([
             'name' => $providerUser->getName(),
             'email' => $providerUser->getEmail(),
             'avatar' => $providerUser->getAvatar(),
@@ -70,8 +70,6 @@ class SocialAuthService
             'provider_id' => $providerUser->getId(),
             'password' => null, // Social login users don't have a password
         ]);
-<<<<<<< Updated upstream
-=======
 
         $user->markEmailAsVerified();
 
@@ -79,6 +77,5 @@ class SocialAuthService
         $user->assignRole('customer');
 
         return $user;
->>>>>>> Stashed changes
     }
 }
