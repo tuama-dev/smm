@@ -10,8 +10,11 @@ This application is a Laravel application and its main Laravel ecosystems packag
 
 - php - 8.5.1
 - inertiajs/inertia-laravel (INERTIA) - v2
+- laravel/cashier (CASHIER) - v16
 - laravel/framework (LARAVEL) - v12
 - laravel/prompts (PROMPTS) - v0
+- laravel/socialite (SOCIALITE) - v5
+- tightenco/ziggy (ZIGGY) - v2
 - laravel/mcp (MCP) - v0
 - laravel/pint (PINT) - v1
 - laravel/sail (SAIL) - v1

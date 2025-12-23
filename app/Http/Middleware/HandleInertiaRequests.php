@@ -31,7 +31,35 @@ class HandleInertiaRequests extends Middleware
     {
         return [
             ...parent::share($request),
-            // Add your shared data here
+
+            'auth' => [
+                'user' => $request->user() ? [
+                    'id' => $request->user()->id,
+                    'name' => $request->user()->name,
+                    'email' => $request->user()->email,
+                    'avatar_url' => $request->user()->avatar_url,
+                    'current_team_id' => $request->user()->current_team_id,
+                ] : null,
+
+                'currentTeam' => $request->user()?->currentTeam ? [
+                    'id' => $request->user()->currentTeam->id,
+                    'name' => $request->user()->currentTeam->name,
+                    'slug' => $request->user()->currentTeam->slug,
+                    'personal_team' => $request->user()->currentTeam->personal_team,
+                ] : null,
+
+                'allTeams' => $request->user() ? $request->user()->teams()->get()->map(fn ($team) => [
+                    'id' => $team->id,
+                    'name' => $team->name,
+                    'slug' => $team->slug,
+                    'personal_team' => $team->personal_team,
+                ])->toArray() : [],
+            ],
+
+            'flash' => [
+                'success' => fn () => $request->session()->get('success'),
+                'error' => fn () => $request->session()->get('error'),
+            ],
         ];
     }
 }
