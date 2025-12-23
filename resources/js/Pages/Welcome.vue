@@ -1,8 +1,10 @@
-<script setup>
-defineProps({
-    laravelVersion: String,
-    phpVersion: String,
-});
+<script setup lang="ts">
+interface Props {
+    laravelVersion?: string;
+    phpVersion?: string;
+}
+
+defineProps<Props>();
 </script>
 
 <template>

@@ -9,7 +9,7 @@ We are building a scalable, multi-tenant Social Media Management (SMM) SaaS.
 ## 2. Tech Stack (Strict Constraints)
 * **Backend:** Laravel 12 (PHP 8.3+).
 * **Frontend:** Vue 3 (Composition API, `<script setup>`, TypeScript).
-* **Glue:** Inertia.js.
+* **Glue:** Inertia.js + Ziggy for routing.
 * **Authentication:** Laravel Breeze + Socialite (Google, FB, TikTok, Apple).
 * **Styling:** Tailwind CSS (v3.4+).
 * **UI Components:** **Shadcn-Vue** (Shadcn + Tailwind).
